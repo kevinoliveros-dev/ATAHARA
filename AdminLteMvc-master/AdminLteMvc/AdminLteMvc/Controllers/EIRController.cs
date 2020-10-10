@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
+using CrystalDecisions.CrystalReports.Engine;
 using Omu.AwesomeMvc;
 
 namespace AdminLteMvc.Controllers
@@ -332,6 +334,33 @@ namespace AdminLteMvc.Controllers
         {
             var eiroutdtls = db.EirPullOut.Find(ID);
             return View("ViewDetails", eiroutdtls);
+        }
+        public ActionResult EIROViewDetails(int ID)
+        {
+            ViewBag.EIRONo = db.EirPullOut.Find(ID).EIRONo;
+            return View("EIROViewDetails");
+        }
+        public FileResult DisplayEIROReport(string EIRONo)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIROReport.rpt")));
+            string query = String.Format("exec pr_eirosp '{0}'", EIRONo);
+            var list = db.Database.SqlQuery<Reports_VM.EIROVm>(query).ToList();
+
+            if (list.Count > 0)
+            {
+                rd.SetDataSource(list);
+                rd.SetParameterValue(0, EIRONo);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+            }
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return File(stream, "application/pdf");
         }
     }
 }

@@ -80,8 +80,10 @@ new Column{Bind = "EIROSCR", Header = "Shipping Company Representative"}
             });
 
             var lastSelectedIds;
+            var lastSelectedEIRONo;
             $('#ApiDemoGrid').on('aweselect', function () {
                 lastSelectedIds = $.map($(this).data('api').getSelection(), function (val) { return val.EIROID; });
+                lastSelectedEIRONo = $.map($(this).data('api').getSelection(), function (val) { return val.EIRONo; });
                 console.log(lastSelectedIds);
                 lastSelectedIdStat = $.map($(this).data('api').getSelection(), function (val) { return val.EIROStatus; });
                 console.log(lastSelectedIds);
@@ -109,9 +111,9 @@ new Column{Bind = "EIROSCR", Header = "Shipping Company Representative"}
 
             $('#viewdtls').click(function () {
 
-                if (lastSelectedIds != null) {
-                    if (lastSelectedIds.length != 0) {
-                        window.location.href = '/EIR/ViewDetails/' + lastSelectedIds;
+                if (lastSelectedEIRONo != null) {
+                    if (lastSelectedEIRONo.length != 0) {
+                        window.location.href = '/EIR/EIROViewDetails/' + lastSelectedIds;
                     }
                     else {
                         $.notify("Please select eir to print.", "error");
