@@ -1,0 +1,378 @@
+﻿@model AdminLteMvc.Models.WEBSales.ATW
+
+@{
+    ViewBag.Title = "Add ATW";
+    Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-success">
+        <div class="box-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form>
+                            <div class="form-group">
+                                <label for="issuedate">Issue Date</label><br />
+                                @Html.EditorFor(model => model.iDate, new { htmlAttributes = new { @type = "date", @class = "form-control", id = "issuedate" } })
+                            </div>
+                            <div class="form-group">
+                                <label for="expirydate">Expiry Date</label><br />
+                                @Html.EditorFor(model => model.eDate, new { htmlAttributes = new { @type = "date", @class = "form-control", id = "expirydate" } })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bookingno">Booking</label> <br />
+                                <select id="bookingno" class="form-control">
+                                    <option value="0">-- Select booking --</option>
+                                    @{
+                                        foreach (var item in ViewBag.DocumentNumbers)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyshipper">Company/Shipper</label><br />
+                                @Html.EditorFor(model => model.cShipper, new { htmlAttributes = new { @class = "form-control", id = "companyshipper", @readonly = true } })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form>
+                            <div class="form-group">
+                                <label for="atwno">ATW No</label><br />
+                                @Html.EditorFor(model => model.atwBkNo, new { htmlAttributes = new { @class = "form-control", id = "atwno", @readonly = true } })
+                            </div>
+                            <div class="form-group">
+                                <label for="contactperson">Contact Person</label><br />
+                                @Html.EditorFor(model => model.conPerson, new { htmlAttributes = new { @class = "form-control", id = "contactperson" } })
+                            </div>
+                            <div class="form-group">
+                                <label for="issuedby">ATW Issued By</label><br />
+                                @Html.EditorFor(model => model.issuedBy, new { htmlAttributes = new { @class = "form-control", id = "issuedby" } })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="authorizeddriver">Authorized Driver</label><br />
+                            @Html.EditorFor(model => model.aDriver, new { htmlAttributes = new { @class = "form-control", id = "authorizeddriver" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="authorizedtrucker">Authorized Trucker</label><br />
+                            @Html.EditorFor(model => model.aTrucker, new { htmlAttributes = new { @class = "form-control", id = "authorizedtrucker" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="plateno">Truck Plate No.</label><br />
+                            @Html.EditorFor(model => model.plateNo, new { htmlAttributes = new { @class = "form-control", id = "plateno" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="remarks">Remarks</label><br />
+                            @Html.TextAreaFor(m => m.remarks, new { @class = "form-control", id = "remarks" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.EditorFor(model => model.atwYear, new { htmlAttributes = new { @class = "form-control", id = "atwyear", @readonly = true } })
+            @Html.EditorFor(model => model.atwBkID, new { htmlAttributes = new { @class = "form-control", id = "atwbkid", @readonly = true } })
+            @Html.EditorFor(model => model.trns, new { htmlAttributes = new { @class = "form-control", id = "transSelect", @readonly = true } })
+        </div>
+        <i>*Please select transaction below to withdraw.</i>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Transaction Number</th>
+                    <th>Transaction Date</th>
+                    <th>Price List</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Consignee</th>
+                    <th>Consignee Address</th>
+                    <th>Service Type</th>
+                    @*<th>Charge To</th>
+                        <th>Cargo Type</th>
+                        <th>Container Class</th>
+                        <th>ConVan Requirements</th>
+                        <th>Payment Mode</th>
+                        <th>CY - Empty Pull Out</th>
+                        <th>CY - Stuffing Activity</th>
+                        <th>CY - Laden Delivery</th>
+                        <th>Remarks</th>*@
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="box-footer">
+            <button type="button" class="btn btn-primary" id="submit"> <i class="fa fa-arrow-circle-right"></i> Proceed </button>
+            @* <button type="button" class="btn btn-primary" id="test"> <i class="fa fa-pencil fa-1x"></i> Test </button>*@
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "ATW")'"> <i class="fa fa-times"></i> Cancel</button>
+        </div>
+    </div>
+}
+<link href="~/Content/bootstrap-toggle.css" rel="stylesheet" />
+<script src="~/Scripts/bootstap-toggle.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+@section Scripts{
+    <script src="~/Scripts/bootstap-toggle.js"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#bookingno").chosen();
+        });
+
+        $("#atwyear").css("display", "none");
+        $("#atwbkid").css("display", "none");
+        $("#transSelect").css("display", "none");
+
+        $(document).ready(function () {
+        $('#issuedate').on("change", function () {
+            var tt = document.getElementById('issuedate').value;
+
+            var today = new Date(tt);
+            var dd = today.getDate()+2;
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("expirydate").value = today;
+
+            var yearInput = yyyy.toString()
+
+            $.ajax({
+                url: '../../../ATW/GetIDSFromYear',
+                type: 'GET',
+                data: { yearInput: yearInput },
+                contentType: "application/json",
+                success: function (ids) {
+                    console.log("I'M HERE");
+                    console.log(ids);
+                    var docFormatted = 'ATW-' + yearInput + '-' + ids;
+                    document.getElementById("atwno").value = docFormatted;
+                    document.getElementById("atwyear").value = yearInput;
+                    document.getElementById("atwbkid").value = ids;
+                },
+            });
+        });
+
+        $('#bookingno').on("change", function () {
+            var bookingNum = document.getElementById('bookingno').value;
+
+            var bknumber = bookingNum.toString();
+
+            $.ajax({
+                url: '../../../ATW/GetDetailsFromBooking',
+                type: 'get',
+                data: { bknumber: bknumber },
+                contenttype: "application/json",
+                success: function (company) {
+                    document.getElementById("companyshipper").value = company;
+                },
+            });
+
+            $.ajax({
+                url: '../../../ATW/GetATWTrnDetails',
+                type: 'get',
+                data: { bknumber: bknumber },
+                contenttype: "application/json",
+                success: function (company) {
+                    console.log(company);
+                    for (var i = 0; i < company.length; i++) {
+                        var markup = "<tr><td><input type='checkbox' name='trnsction' value='" + company[i].transactionNo+"'></td><td>" + company[i].transactionNo + "</td><td>" + company[i].transactionDate + "</td><td>" + company[i].priceList + "</td><td>"
+                            + company[i].origin + "</td><td>"
+                            + company[i].destination + "</td><td>"
+                            + company[i].consignee + "</td><td>"
+                            + company[i].consigneeAdd + "</td><td>"
+                            + company[i].serviceType + "</td></tr>";
+                        $("table tbody").append(markup);
+                    }
+                },
+            });
+
+
+        })
+
+
+
+            $('#submit').click(function () {
+                var isAllValid = true;
+                var d1 = new Date($('#issuedate').val());
+                var d2 = new Date($('#expirydate').val());
+                if (d2 < d1) {
+                    $.notify("Expiry date must not be before with the issued date", "error");
+                    isAllValid = false;
+                }
+
+                if ($("input:checkbox:checked").length < 1) {
+                    $.notify("Must select transaction to proceed.", "error");
+                    isAllValid = false;
+                } else {
+                    var trnArray = [];
+                    $("table tbody").find('input[name="trnsction"]').each(function () {
+                        if ($(this).is(":checked")) {
+                            trnArray.push($(this).val());
+                        }
+                    });
+                    console.log(trnArray);
+                    var trns = trnArray.join();
+                    document.getElementById("transSelect").value = trns;
+                }
+
+
+                var bk = $('#bookingno').find(":selected").val();
+
+                if ($('#issuedate').val().trim() == '') {
+                    $.notify("Issue Date is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#atwno').val().trim() == '') {
+                    $.notify("ATW No is required.", "error");
+                    isAllValid = false;
+                }
+
+                if (bk === '0' || $('#bookingno').val().trim() == '') {
+                    $.notify("Booking No is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#expirydate').val().trim() == '') {
+                    $.notify("Expiry Date is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#companyshipper').val().trim() == '') {
+                    $.notify("Authorized Driver is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#contactperson').val().trim() == '') {
+                    $.notify("Contact Person is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#authorizeddriver').val().trim() == '') {
+                    $.notify("Authorized Driver is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#authorizedtrucker').val().trim() == '') {
+                    $.notify("Authorized Trucker is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#plateno').val().trim() == '') {
+                    $.notify("Truck Plate No is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#issuedby').val().trim() == '') {
+                    $.notify("Issued By is required.", "error");
+                    isAllValid = false;
+                }
+
+                if ($('#remarks').val().trim() == '') {
+                    $.notify("Remarks is required.", "error");
+                    isAllValid = false;
+                }
+
+                if (isAllValid) {
+
+
+                    var dataHdr = {
+                        iDate: $('#issuedate').val(),
+                        atwBkNo: $('#atwno').val(),
+                        bkNo: $('#bookingno').val(),
+                        eDate: $('#expirydate').val(),
+                        cShipper: $('#companyshipper').val(),
+                        conPerson: $('#contactperson').val(),
+                        aDriver: $('#authorizeddriver').val(),
+                        aTrucker: $('#authorizedtrucker').val(),
+                        plateNo: $('#plateno').val(),
+                        issuedBy: $('#issuedby').val(),
+                        remarks: $('#remarks').val(),
+                        atwYear: $('#atwyear').val(),
+                        atwBkID: $('#atwbkid').val(),
+                        trns: $('#transSelect').val(),
+                        atwStatus:"Active"
+                    }
+
+                    console.log(dataHdr);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../../ATW/SaveHdr',
+                        data: JSON.stringify(dataHdr),
+                        contentType: 'application/json',
+                        success: function (dataHdr) {
+                            if (dataHdr.status) {
+                                console.log(dataHdr);
+                                $.notify("Operation successfully posted.", "success");
+                                var url = '@Url.Action("Index", "ATW")';
+                                window.location.href = url;
+                            }
+                            else {
+                                $.notify("Operation failed to post.", "error");
+                            }
+                            $('#submit').text('Save');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            $('#submit').text('Save');
+                        }
+                    });
+                }
+            });//end
+
+        });
+    </script>
+}
+
+<style>
+    /*    .container {
+        padding-left: 145px;
+    }*/
+
+    th, td {
+        width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /*    table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid #cdcdcd;
+    }
+
+        table th, table td {
+            padding: 5px;
+            text-align: left;
+        }*/
+
+</style>
+

@@ -1,0 +1,48 @@
+﻿@model AdminLteMvc.Models.WEBSales.Booking
+@{
+    Layout = null;
+}
+
+    <table class="table table-responsive">
+        <tr>
+            <td>Document Date</td>
+            <td>
+                @Html.EditorFor(model => model.docDate, new { htmlAttributes = new { @class = "form-control", id = "ddate", @readonly = "true" } })
+            </td>
+            <td>Customer Name/Shipper</td>
+            <td>
+                @Html.EditorFor(model => model.cnameshpr, new { htmlAttributes = new { @class = "form-control", id = "cnmshpr", @readonly = "true" } })
+            </td>
+        </tr>
+        <tr>
+            <td>Document Number</td>
+            <td>
+                @Html.EditorFor(model => model.docNum, new { htmlAttributes = new { @class = "form-control", id = "dNum", @readonly = "true" } })
+            </td>
+            <td>ConVan Size</td>
+            <td>
+                @Html.EditorFor(model => model.csize, new { htmlAttributes = new { @class = "form-control", id = "csize", @readonly = "true" } })
+            </td>
+        </tr>
+        <tr>
+            <td>Bill To</td>
+            <td>
+                @Html.EditorFor(model => model.billTo, new { htmlAttributes = new { @class = "form-control", id = "billto", @readonly = "true" } })
+            </td>
+            <td>ConVan Status</td>
+            <td>
+                @Html.EditorFor(model => model.cstatus, new { htmlAttributes = new { @class = "form-control", id = "cstatus", @readonly = "true" } })
+            </td>
+        </tr>
+        <tr>
+            <td>Transaction No</td>
+            <td>
+                @Html.EditorFor(model => model.transactionNo, new { htmlAttributes = new { @class = "form-control", id = "tranNum", @readonly = "true" } })
+            </td>
+            <td>Mnemonic</td>
+            <td>
+                @Html.EditorFor(model => model.mnemonic, new { htmlAttributes = new { @class = "form-control", id = "mnemonic", @readonly = "true" } })
+            </td>
+        </tr>
+    </table>
+

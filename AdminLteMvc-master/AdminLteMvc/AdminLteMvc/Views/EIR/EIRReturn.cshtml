@@ -1,0 +1,233 @@
+﻿@model AdminLteMvc.Models.WEBSales.EirPullOut
+@{
+    ViewBag.Title = "EIR Returned";
+    Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
+}
+
+<div class="box box-success">
+    <div class="box-body"> 
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>
+                        <b>
+                            <span style="font-size:20px;">
+                                KARGAMINE TOO, INC.
+                            </span> <br />
+                            <span style="font-size:15px;">EIR In No:</span> <span style="color:red; font-size: 13px;">@ViewBag.EIRINo</span><br />
+                            <span style="font-size:15px;">Reference No:</span> <span style="color:red; font-size:13px;">@Model.EIRONo</span>
+                        </b>
+                    </h4>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <h4>
+                        <b>
+                            <i>Equipment Interchange Receipt</i> <br />
+                        </b>
+                    </h4>
+                </div>
+            </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td><b>SCR:</b>@Model.EIROSCR</td>
+                    <td><b>RETURN TIME:</b> @Model.EIROTime</td>
+                    <td><b>SERVICE TYPE:</b> @Model.EIROServiceType</td>
+                    <td><b>TRANSACTION NO:</b> @Model.EIROTransactionNo</td>
+                </tr>
+                <tr>
+                    <td><b>CONVAN NO:</b> @Model.EIROConvanNo</td>
+                    <td><b>CONVAN STATUS:</b> @Model.EIROConvanStatus</td>
+                    <td><b>CONVAN SIZE:</b> @Model.EIROConvanSize</td>
+                    <td><b>CONSIGNEE:</b> @Model.EIROConsignee</td>
+                </tr>
+                <tr>
+                    <td><b>SHIPPER:</b> @Model.EIROShipper</td>
+                    <td><b>TRUCKER:</b> @Model.EIROTrucker</td>
+                    <td><b>DRIVER'S NAME:</b> @Model.EIRODriversName</td>
+                    <td><b>PLATE NO:</b> @Model.EIROPlateNo</td>
+                </tr>
+                <tr>
+                    <td><b>VESSEL:</b> @Model.EIROVessel</td>
+                    <td><b>VOYAGE NO:</b>@Model.EIROVoyageNo</td>
+                    <td><b>SEAL NO:</b>@Model.EIROSealNo</td>
+                    <td><b>SEAL STATUS:</b>@Model.EIROSealStatus</td>
+                </tr>
+                <tr>
+                    <td><b>RELAY PORT:</b> @Model.EIRORelayPort</td>
+                    <td><b>PORT OF ORIGIN:</b>@Model.EIROPortOfOrigin</td>
+                    <td><b>PORT OF DESTINATION:</b>@Model.EIROPortOfDestination</td>
+                    <td>
+                        <b>WEIGHT:</b>@Model.EIROWeight<br />
+                        <b>VOLUME:</b>@Model.EIROVolume
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <b>RETURN DATE:</b> <br /><input type="date" class="form-control" id="returndate">
+                    <br />
+                    <b>DAMAGES CODES:</b> <br />
+                    <select id="damagecodes" class="form-control" multiple="multiple">
+                        @{
+                            foreach (var item in ViewBag.DamageList)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                    <br /><br />
+                    <b>REMARKS:</b>
+                    @*@Html.TextBoxFor("EIRORemarks", new { htmlAttributes = new { @Value = "", @class = "form-control", id = "remarks" } })*@
+                    <textarea class="form-control" id="remarks" aria-label="REMARKS"></textarea>
+                </td>
+                <td>
+                    <img src="~/AppFiles/Images/container.PNG" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box-footer">
+        <button type="button" class="btn btn-primary" id="return"> <i class="fa fa-pencil fa-1x"></i> RETURN </button>
+        <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "EIR")'"> <i class="fa fa-cancel fa-1x"></i> Back to list of EIR</button>
+    </div>
+</div>
+
+<link href="~/Content/bootstrap-toggle.css" rel="stylesheet" />
+<script src="~/Scripts/bootstap-toggle.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+
+<script type="text/javascript">
+    $("#damagecodes").chosen();
+    var icodes = @Html.Raw(Json.Encode(Model.EIRODamagesCode));
+    var arrRequire = icodes.split(',');
+    $("#damagecodes").val(arrRequire).trigger("chosen:updated");
+
+    $('#return').click(function () {
+        var isAllValid = true;
+
+            if ($('#returndate').val().trim() == '') {
+                $.notify("EIR Return Date is required.", "error");
+                isAllValid = false;
+            }
+
+            if ($('#damagecodes').val() == '' || $('#damagecodes').val() == null) {
+                $.notify("Damage Codes is required.", "error");
+                isAllValid = false;
+        }
+        if ($('#remarks').val().trim() == '') {
+            $.notify("Remarks is required.", "error");
+            isAllValid = false;
+        }
+
+            if (isAllValid) {
+                var tempcode = $('#damagecodes').val().join();
+                var dmgcds = tempcode.toString();
+
+                var IDpassed = @Html.Raw(Json.Encode(ViewBag.IDFromOut));
+
+                var eirinno =@Html.Raw(Json.Encode(@ViewBag.EIRINo));
+                var refno = @Html.Raw(Json.Encode(@Model.EIRONo));
+
+                var a = @Html.Raw(Json.Encode(@Model.EIROSCR));
+                var b= @Html.Raw(Json.Encode(@Model.EIROTime));
+                var c= @Html.Raw(Json.Encode(@Model.EIROServiceType));
+                var d= @Html.Raw(Json.Encode(@Model.EIROTransactionNo));
+                var e= @Html.Raw(Json.Encode(@Model.EIROConvanNo));
+                var f= @Html.Raw(Json.Encode(@Model.EIROConvanStatus));
+                var g= @Html.Raw(Json.Encode(@Model.EIROConvanSize));
+                var h= @Html.Raw(Json.Encode(@Model.EIROConsignee));
+                var i= @Html.Raw(Json.Encode(@Model.EIROShipper));
+                var j= @Html.Raw(Json.Encode(@Model.EIROTrucker));
+                var k= @Html.Raw(Json.Encode(@Model.EIROPlateNo));
+                var l= @Html.Raw(Json.Encode(@Model.EIRORelayPort));
+                var m= @Html.Raw(Json.Encode(@Model.EIROVessel));
+                var n= @Html.Raw(Json.Encode(@Model.EIROVoyageNo));
+                var o= @Html.Raw(Json.Encode(@Model.EIROSealNo));
+                var p= @Html.Raw(Json.Encode(@Model.EIROSealStatus));
+                var q= @Html.Raw(Json.Encode(@Model.EIROPortOfOrigin));
+                var r= @Html.Raw(Json.Encode(@Model.EIROPortOfDestination));
+                var s= @Html.Raw(Json.Encode(@Model.EIROWeight));
+                var t = @Html.Raw(Json.Encode(@Model.EIROVolume));
+                var u= @Html.Raw(Json.Encode(@Model.EIRODriversName));
+
+                var eirData = {
+                    EIRINo: eirinno,
+                    EIRIReferenceNo: refno,
+                    EIRIDate: $('#returndate').val(),
+                    EIRITime: b,
+                    EIRIServiceType: c,
+                    EIRIConvanNo: e,
+                    EIRIConvanStatus: f,
+                    EIRIConvanSize: g,
+                    EIRITransactionNo: d,
+                    EIRIRelayPort: l,
+                    EIRIShipper: i,
+                    EIRIConsignee: h,
+                    EIRITrucker: j,
+                    EIRIPlateNo: k,
+                    EIRIDriversName: u,
+                    EIRIVessel: m,
+                    EIRIVoyageNo: n,
+                    EIRIPortOfOrigin: q,
+                    EIRIPortOfDestination: r,
+                    EIRISealNo: o,
+                    EIRISealStatus: p,
+                    EIRIWeight: s,
+                    EIRIVolume: t,
+                    EIRIDamagesCode: dmgcds,
+                    EIRISCR: a,
+                    EIRIStatus: "Returned",
+                    EIRIRemarks: $('#remarks').val()
+                }
+
+                console.log(eirData);
+                console.log(IDpassed);
+                console.log(dmgcds);
+
+                $.ajax({
+                        type: 'POST',
+                    url: '../../../EIR/Return',
+                    data: JSON.stringify({ data: eirData, ID: IDpassed }),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.status) {
+                                $.notify("Operation successfully posted.", "success");
+                                var url = '@Url.Action("IndexIn", "EIR")';
+                                window.location.href = url;
+                            }
+                            else {
+                                $.notify("Operation failed to post.", "error");
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+            }
+        })
+</script>
+}
+
+<style>
+    #EIROVessel, #EIROVoyageNo, #EIROPortOfOrigin, #EIROPortOfDestination, #EIROSealStatus {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    }
+</style>

@@ -1,0 +1,393 @@
+﻿@model AdminLteMvc.Models.WEBSales.TransactionDetails
+@{
+    ViewBag.Title = "Add Transaction";
+    Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-success">
+        <div class="box-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="transactionno">Transaction No</label>
+                            @Html.EditorFor(model => model.transactionNo, new { htmlAttributes = new { @Value = ViewBag.TrnValue, @class = "form-control", id = "transactionno", @readonly = true } })
+                        </div>
+                        <div class="form-group">
+                            <label for="transactiondate">Transaction Date</label>
+                            @* @Html.TextBoxFor(m => m.transactionDate, "{0:MM-dd-yyyy}", new { @class = "form-control", @type = "date", id = "transactiondate" })*@
+                            @Html.EditorFor(model => model.transactionDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "transactiondate" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="plist">Price List</label> <br />
+                            <select id="plist" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.PriceList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            @Html.EditorFor(model => model.price, new { htmlAttributes = new { placeholder = "Enter price here...", @class = "form-control", id = "price" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="origin">Origin</label> <br />
+                            <select id="origin" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.OriginList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination</label> <br />
+                            <select id="destination" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.DestinationList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="consignee">Consignee</label> <br />
+                            <select id="consignee" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.ConsigneeList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="consigneeaddress">Consignee Address</label>
+                            @Html.EditorFor(model => model.consigneeAdd, new { htmlAttributes = new { @class = "form-control", id = "consigneeaddress" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="consigneetelno">Consignee Telephone No</label>
+                            @Html.EditorFor(model => model.consigneetelno, new { htmlAttributes = new { @class = "form-control", id = "consigneetelno" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="servicetype">Service Type</label> <br />
+                            <select id="servicetype" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.ServiceTypeList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="chargeto">Charge To</label> <br />
+                            <select id="chargeto" class="form-control">
+                                <option value="0">-- Select below --</option>
+                                @{
+                                    foreach (var item in ViewBag.ChargeToList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        @Html.EditorFor(model => model.trnInputtedDate, new { htmlAttributes = new { @class = "form-control", id = "inputteddate", @readonly = true } })
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="cargotype">Cargo Type</label> <br />
+                                                <select id="cargotype" class="form-control">
+                                                    <option value="0">-- Select below --</option>
+                                                    @{
+                                                        foreach (var item in ViewBag.CargoTypeList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="containerclass">Container Class</label> <br />
+                                                <select id="containerclass" class="form-control">
+                                                    <option value="0">-- Select below --</option>
+                                                    @{
+                                                        foreach (var item in ViewBag.ContainerClassList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="conrequirements">ConVan Requirements</label> <br />
+                                                <select id="conrequirements" class="form-control" multiple="multiple">
+                                                    @{
+                                                        foreach (var item in ViewBag.ConVanRequirementList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="quantity">Quantity</label>
+                                                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", id = "quantity" } })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="unitofmeasurement">Unit of Measurement</label>
+                                                @Html.EditorFor(model => model.unitofmeasurement, new { htmlAttributes = new { @class = "form-control", id = "unitofmeasurement" } })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="paymode">Payment Mode</label>
+                                                @Html.EditorFor(model => model.payMode, new { htmlAttributes = new { @class = "form-control", id = "paymode" } })
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cyepo">CY - Empty Pull Out</label> <br />
+                                                <select id="cyepo" class="form-control">
+                                                    <option value="0">-- Select below --</option>
+                                                    @{
+                                                        foreach (var item in ViewBag.EPOList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cysa">CY - Stuffing Activity</label> <br />
+                                                <select id="cysa" class="form-control">
+                                                    <option value="0">-- Select below --</option>
+                                                    @{
+                                                        foreach (var item in ViewBag.SAList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cyld">CY - Laden Delivery</label> <br />
+                                                <select id="cyld" class="form-control">
+                                                    <option value="0">-- Select below --</option>
+                                                    @{
+                                                        foreach (var item in ViewBag.LDList)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rmrks">Remarks</label>
+                                                @Html.TextAreaFor(m => m.remarks, new { @class = "form-control", id = "rmrks" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="modalSave">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="button" class="btn btn-primary" id="submit"> <i class="fa fa-pencil fa-1x"></i> Save </button>
+            <input type="button" id="add" value="Details" style="width:80px" class="btn btn-info open-modal" data-toggle="modal" data-target="#myModal" />
+            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("TrnDetails", "Booking", new { ViewBag.ID })'"> <i class="fa fa-trash fa-1x"></i> Cancel</button>
+        </div>
+    </div>
+}
+<link href="~/Content/bootstrap-toggle.css" rel="stylesheet" />
+<script src="~/Scripts/bootstap-toggle.js"></script>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            document.getElementById("submit").disabled = true;
+
+            $("#plist").chosen();
+            $("#origin").chosen();
+            $("#destination").chosen();
+            $("#consignee").chosen();
+            $("#servicetype").chosen();
+            $("#chargeto").chosen();
+
+            $("#containerclass").chosen({ width: '30%' });
+            $("#cargotype").chosen({ width: '30%' });
+            $("#conrequirements").chosen({ width: '30%' });
+            $("#cyepo").chosen({ width: '30%' });
+            $("#cysa").chosen({ width: '30%' });
+            $("#cyld").chosen({ width: '30%' });
+
+        $('#modalSave').on("click", function () {
+            document.getElementById("submit").disabled = false;
+            var preq = $('#conrequirements').val();
+            alert(preq);
+            console.log(preq);
+        });
+
+        $("#inputteddate").css("display", "none");
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("transactiondate").value = today;
+
+        var isdate = new Date();
+        isdate.setDate(isdate.getDate());
+
+        var issuedDate = ('0' + isdate.getDate()).slice(-2) + '-'
+            + ('0' + (isdate.getMonth() + 1)).slice(-2) + '-'
+            + isdate.getFullYear();
+
+        console.log(issuedDate);
+        document.getElementById("inputteddate").value = issuedDate;
+    });
+
+
+
+    $(document).ready(function () {
+
+        $('#plist').on("change", function () {
+            alert($('#plist').val());
+            document.getElementById('price').style.visibility = 'visible';
+            //CHECK IF PRICE FACTOR
+
+            //if ($('#plist').val() === "Price Factor") {
+            //    $.ajax({
+            //    url: '../../../Booking/GetPriceFactor',
+            //    type: 'GET',
+            //    data: { yearInput: yearInput },
+            //    contentType: "application/json",
+            //    success: function (ids) {
+            //        console.log("I'M HERE");
+            //    },
+            //});
+        })
+
+            $('#submit').click(function () {
+                var isAllValid = true;
+                console.log("IM IN");
+                if (isAllValid) {
+                    console.log("IM HERE");
+                    var tempreq = $('#conrequirements').val().join();
+                    var requirements = tempreq.toString();
+                    var documentNumber = @Html.Raw(Json.Encode(ViewBag.docNumber));
+
+                    var data = {
+
+                        transactionID: @ViewBag.ID,
+                        documentID: @ViewBag.docuID.ToString(),
+                        docNumber: documentNumber,
+                        transactionNo: $('#transactionno').val(),
+                        dtlStatus: "Active",
+                        priceList: $('#plist').val(),
+                        price: $('#price').val(),
+                        origin: $('#origin').val(),
+                        destination: $('#destination').val(),
+                        consignee: $('#consignee').val(),
+                        consigneeAdd: $('#consigneeaddress').val(),
+                        consigneetelno: $('#consigneetelno').val(),
+                        cargoType: $('#cargotype').val(),
+                        conClass: $('#containerclass').val(),
+                        conRqrmnts: requirements,
+                        quantity: $('#quantity').val(),
+                        unitofmeasurement: $('#unitofmeasurement').val(),
+                        payMode: $('#paymode').val(),
+                        cyEPO: $('#cyepo').val(),
+                        cySA: $('#cysa').val(),
+                        cyLD: $('#cyld').val(),
+                        chargeTo: $('#chargeto').val(),
+                        remarks: $('#rmrks').val(),
+                        serviceType: $('#servicetype').val(),
+                        transactionDate: $('#transactiondate').val(),
+                        trnInputtedDate: $('#inputteddate').val()
+                    }
+
+                    console.log(data);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../../Booking/SaveNewDetail',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.status) {
+                                //alert('Successfully saved');
+                                $.notify("Operation successfully posted.", "success");
+
+                                var url = '@Url.Action("TrnDetails", "Booking", new { ViewBag.ID })';
+                                window.location.href = url;
+
+                            }
+                            else {
+                                //alert('Error');
+                                $.notify("Operation failed to post.", "error");
+                            }
+                            $('#submit').text('Save');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            $('#submit').text('Save');
+                        }
+                    });
+                }
+
+            });//end
+
+        });
+    </script>
+}
+
+<style>
+    .modal-dialog {
+        width: 345px;
+    }
+
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 400px;
+        overflow-y: auto;
+    }
+
+    #price {
+        visibility: hidden;
+    }
+</style>
