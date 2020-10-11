@@ -337,20 +337,20 @@ namespace AdminLteMvc.Controllers
         }
         public ActionResult EIROViewDetails(int ID)
         {
-            ViewBag.EIRONo = db.EirPullOut.Find(ID).EIRONo;
+            ViewBag.EIROID = ID;
             return View("EIROViewDetails");
         }
-        public FileResult DisplayEIROReport(string EIRONo)
+        public FileResult DisplayEIROReport(int EIROID)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIROReport.rpt")));
-            string query = String.Format("exec pr_eirosp '{0}'", EIRONo);
+            rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/EIROReport.rpt")));
+            string query = String.Format("exec pr_eirosp {0}", EIROID);
             var list = db.Database.SqlQuery<Reports_VM.EIROVm>(query).ToList();
 
             if (list.Count > 0)
             {
                 rd.SetDataSource(list);
-                rd.SetParameterValue(0, EIRONo);
+                rd.SetParameterValue(0, EIROID);
 
                 Response.Buffer = false;
                 Response.ClearContent();

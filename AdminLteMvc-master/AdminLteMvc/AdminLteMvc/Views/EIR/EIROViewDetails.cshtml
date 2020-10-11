@@ -1,7 +1,10 @@
 ﻿@{
     ViewBag.Title = "EIR PullOut Report";
     Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
+
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("IndexOut", "EIR")'"> <i class="fa fa-cancel fa-1x"></i> Back to EIR-Out List</button>
 }
+
 
 <div class="wrapper wrapper-content animated fadeIn">
 
@@ -21,7 +24,7 @@
             var URL = '../../../EIR/DisplayEIROReport';
             $("#DisplayPDF").html(
                 $('<iframe>', {
-                    src: URL + '?EIRONo=' + '@ViewBag.EIRONo',
+                    src: URL + '?EIROID=' + @ViewBag.EIROID,
                     title: "EIR PullOut Report",
                     width: '1000px',
                     height: '800px'
