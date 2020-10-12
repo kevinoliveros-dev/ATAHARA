@@ -647,6 +647,7 @@
     <Compile Include="Models\WEBSales\WithHoldings.cs" />
     <Compile Include="Models\WEBSales\Yard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports_VM\EIRIVm.cs" />
     <Compile Include="Reports_VM\EIROVm.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
@@ -1571,6 +1572,7 @@
     <Content Include="Views\Proforma\Billing.cshtml" />
     <Content Include="Views\Proforma\ViewBill.cshtml" />
     <Content Include="Views\EIR\EIROViewDetails.cshtml" />
+    <Content Include="Views\EIR\EIRIViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1813,8 +1815,17 @@
     <EmbeddedResource Include="Migrations\202009290728269_EirPullOut5.resx">
       <DependentUpon>202009290728269_EirPullOut5.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report_Documents\EIRIReturnInReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EIRIReturnInReport2.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Default\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
