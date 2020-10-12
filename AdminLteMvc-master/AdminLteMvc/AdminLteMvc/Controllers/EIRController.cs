@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
 using CrystalDecisions.CrystalReports.Engine;
+using Omu.AwesomeMvc;
+using AdminLteMvc.Reports_VM;
 
 namespace AdminLteMvc.Controllers
 {
@@ -362,27 +364,27 @@ namespace AdminLteMvc.Controllers
             return File(stream, "application/pdf");
         }
 
-        public FileResult DisplayEIRIReturnReport(string EIRINo)
-        {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
-            string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
-            var list = db.Database.SqlQuery<Reports_VM.EIRIVm>(query).ToList();
+        //public FileResult DisplayEIRIReturnReport(string EIRINo)
+        //{
+        //    ReportDocument rd = new ReportDocument();
+        //    rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
+        //    string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
+        //    var list = db.Database.SqlQuery<AdminLteMvc.Reports_VM.EIRIVm>(query).ToList();
 
-            if (list.Count > 0)
-            {
-                rd.SetDataSource(list);
-                rd.SetParameterValue(0, EIRINo);
+        //    if (list.Count > 0)
+        //    {
+        //        rd.SetDataSource(list);
+        //        rd.SetParameterValue(0, EIRINo);
 
-                Response.Buffer = false;
-                Response.ClearContent();
-                Response.ClearHeaders();
-            }
+        //        Response.Buffer = false;
+        //        Response.ClearContent();
+        //        Response.ClearHeaders();
+        //    }
 
-            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            stream.Seek(0, SeekOrigin.Begin);
+        //    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+        //    stream.Seek(0, SeekOrigin.Begin);
 
-            return File(stream, "application/pdf");
-        }
+        //    return File(stream, "application/pdf");
+        //}
     }
 }

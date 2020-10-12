@@ -141,6 +141,10 @@
                 lastSelectedIds = $.map($(this).data('api').getSelection(), function (val) { return val.tranID; });
                 console.log(lastSelectedIds);
             })
+            $('#ApiDemoGrid').on('aweselect', function () {
+                transactionNumber = $.map($(this).data('api').getSelection(), function (val) { return val.transactionNo; });
+                console.log(transactionNumber);
+            })
 
         $('#edit').click(function () {
             if (lastSelectedIds != null) {
@@ -173,8 +177,9 @@
         $('#print').click(function () {
             if (lastSelectedIds != null) {
                 if (lastSelectedIds.length != 0) {
-                    var atwno = @Html.Raw(Json.Encode(@Model.atwBkNo));
-                    window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?atwbkno=' + atwno;
+                    var atwno = @Html.Raw(Json.Encode(@Model.bkNo));
+                    //window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?atwbkno=' + atwno;
+                    window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?transNo=' + transactionNumber + '&atwBkNo=' + atwno;
                 }
                 else {
                     $.notify("Please select row to view details.", "error");

@@ -40,6 +40,7 @@
     <div class="box-footer">
         <button type="button" id="addnew" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "ATW")'"> <i class="fa fa-plus-circle fa-1x"></i> Add</button>
         <button type="button" class="btn btn-info" id="view"> <i class="fa fa-search fa-1x"></i> ATW Details</button>
+        @*<button type="button" class="btn btn-default" id="print"> <i class="fa fa-paper-plane-o fa-1x"></i>View Form and Proceed for Print</button>*@
         @*<button type="button" class="btn btn-info" id="edit"> <i class="fa fa-edit fa-1x"></i> Edit Transaction Header</button>*@
         @*<button type="button" class="btn btn-danger" id="cancel"> <i class="fa fa-close fa-1x"></i> Cancel Transaction </button>*@
     </div>
@@ -86,7 +87,6 @@
             })
 
             $('#view').click(function () {
-
                 if (lastSelectedIds != null) {
                     if (lastSelectedIds.length != 0) {
                         window.location.href = '/ATW/ATWTrnDetails/' + lastSelectedIds;
@@ -97,6 +97,21 @@
                 }
                 else {
                     $.notify("Please select transaction to view its details.", "error");
+                }
+            });
+
+            $('#print').click(function () {
+                if (lastSelectedIds != null) {
+                    if (lastSelectedIds.length != 0) {
+                        console.log(lastSelectedIds);
+                        window.location.href = '/ATW/DisplayATWReport/' + lastSelectedIds;
+                    }
+                    else {
+                        $.notify("Please select atw to print.", "error");
+                    }
+                }
+                else {
+                    $.notify("Please select atw to print.", "error");
                 }
             });
 
