@@ -10,8 +10,6 @@ using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
 using CrystalDecisions.CrystalReports.Engine;
-using Omu.AwesomeMvc;
-using AdminLteMvc.Reports_VM;
 
 namespace AdminLteMvc.Controllers
 {
@@ -341,6 +339,13 @@ namespace AdminLteMvc.Controllers
             ViewBag.EIROID = ID;
             return View("EIROViewDetails");
         }
+
+        public ActionResult EIRIViewDetails(string eirNo)
+        {
+            ViewBag.EIRINO = eirNo;
+            return View("EIRIViewDetails");
+        }
+
         public FileResult DisplayEIROReport(int EIROID)
         {
             ReportDocument rd = new ReportDocument();
@@ -364,12 +369,12 @@ namespace AdminLteMvc.Controllers
             return File(stream, "application/pdf");
         }
 
-        //public FileResult DisplayEIRIReturnReport(string EIRINo)
-        //{
-        //    ReportDocument rd = new ReportDocument();
-        //    rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
-        //    string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
-        //    var list = db.Database.SqlQuery<AdminLteMvc.Reports_VM.EIRIVm>(query).ToList();
+        public FileResult DisplayEIRIReturnReport(string EIRINo)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
+            string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
+            var list = db.Database.SqlQuery<Reports_VM.EIRIVm>(query).ToList();
 
         //    if (list.Count > 0)
         //    {
