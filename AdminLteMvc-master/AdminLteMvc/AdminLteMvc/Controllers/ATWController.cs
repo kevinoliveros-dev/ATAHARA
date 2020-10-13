@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
+using CrystalDecisions.CrystalReports.Engine;
 using Omu.AwesomeMvc;
 
 namespace AdminLteMvc.Controllers
@@ -232,25 +234,47 @@ namespace AdminLteMvc.Controllers
             return View("AddATWDetail", newDetail);
         }
 
-        public ActionResult ForPrint(int ID, string atwbkno)
+        //public ActionResult ForPrint(int ID, string atwbkno)
+        //{
+        //    var trndetail = db.TransactionDetails.Find(ID);
+        //    var atwdetail = db.ATW.Where(s=>s.atwBkNo.Equals(atwbkno)).Single();
+        //    var bkdetail = db.Booking.Where(s=>s.docNum.Equals(atwdetail.bkNo)).Single();
+
+        //    ViewBag.Trucker = atwdetail.aTrucker;
+        //    ViewBag.ATWBookingNo = atwdetail.atwBkNo;
+        //    ViewBag.Driver = atwdetail.aDriver;
+        //    ViewBag.PlateNo = atwdetail.plateNo;
+        //    ViewBag.Shipper = atwdetail.cShipper;
+        //    ViewBag.BookingNo = atwdetail.bkNo;
+        //    ViewBag.ContactPerson = atwdetail.conPerson;
+        //    ViewBag.IssueDate = atwdetail.iDate;
+        //    ViewBag.ExpiryDate = atwdetail.eDate;
+        //    ViewBag.ConvanSize = bkdetail.csize;
+        //    ViewBag.ConvanStatus = bkdetail.cstatus;
+
+        //    return View("ForPrint", trndetail);
+        //}
+        public FileResult ForPrint(int id,string transNo, string atwBkNo)
         {
-            var trndetail = db.TransactionDetails.Find(ID);
-            var atwdetail = db.ATW.Where(s=>s.atwBkNo.Equals(atwbkno)).Single();
-            var bkdetail = db.Booking.Where(s=>s.docNum.Equals(atwdetail.bkNo)).Single();
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/ATWReport.rpt")));
+            string query = String.Format("exec PROC_ATW '{0}','{1}'", atwBkNo, transNo);
+            var list = db.Database.SqlQuery<Reports_VM.ATWVm>(query).ToList();
 
-            ViewBag.Trucker = atwdetail.aTrucker;
-            ViewBag.ATWBookingNo = atwdetail.atwBkNo;
-            ViewBag.Driver = atwdetail.aDriver;
-            ViewBag.PlateNo = atwdetail.plateNo;
-            ViewBag.Shipper = atwdetail.cShipper;
-            ViewBag.BookingNo = atwdetail.bkNo;
-            ViewBag.ContactPerson = atwdetail.conPerson;
-            ViewBag.IssueDate = atwdetail.iDate;
-            ViewBag.ExpiryDate = atwdetail.eDate;
-            ViewBag.ConvanSize = bkdetail.csize;
-            ViewBag.ConvanStatus = bkdetail.cstatus;
+            if (list.Count > 0)
+            {
+                rd.SetDataSource(list);
+                rd.SetParameterValue(0, atwBkNo);
 
-            return View("ForPrint", trndetail);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+            }
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return File(stream, "application/pdf");
         }
     }
 }
