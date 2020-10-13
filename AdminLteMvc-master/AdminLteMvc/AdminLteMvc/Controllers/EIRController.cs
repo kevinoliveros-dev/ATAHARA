@@ -372,9 +372,9 @@ namespace AdminLteMvc.Controllers
 
         public FileResult DisplayEIRIReturnReport(string EIRINo)
         {
-            var path = Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt");
+            var path = Server.MapPath(@"~/Report_Documents/EIRIReturnInReport.rpt");
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
+            rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/EIRIReturnInReport.rpt")));
             string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
             var list = db.Database.SqlQuery<Reports_VM.EIRIVm>(query).ToList();
 
