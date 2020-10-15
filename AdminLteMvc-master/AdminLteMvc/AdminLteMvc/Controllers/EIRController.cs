@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
 using CrystalDecisions.CrystalReports.Engine;
+using Omu.AwesomeMvc;
 
 namespace AdminLteMvc.Controllers
 {
@@ -369,12 +370,12 @@ namespace AdminLteMvc.Controllers
             return File(stream, "application/pdf");
         }
 
-        public FileResult DisplayEIRIReturnReport(string EIRINo)
-        {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
-            string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
-            var list = db.Database.SqlQuery<Reports_VM.EIRIVm>(query).ToList();
+        //public FileResult DisplayEIRIReturnReport(string EIRINo)
+        //{
+        //    ReportDocument rd = new ReportDocument();
+        //    rd.Load(Path.Combine(Server.MapPath(@"~/Reports_Documents/EIRIReturnInReport.rpt")));
+        //    string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);
+        //    var list = db.Database.SqlQuery<Reports_VM.EIRIVm>(query).ToList();
 
         //    if (list.Count > 0)
         //    {
