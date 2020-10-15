@@ -113,7 +113,7 @@ new Column{Bind = "EIROSCR", Header = "Shipping Company Representative"}
 
                 if (lastSelectedEIRONo != null) {
                     if (lastSelectedEIRONo.length != 0) {
-                        window.location.href = '/EIR/EIROViewDetails/' + lastSelectedIds;
+                        window.location.href = '/EIR/EIROViewDetails/?eiroNo=' + lastSelectedEIRONo;
                     }
                     else {
                         $.notify("Please select eir to print.", "error");

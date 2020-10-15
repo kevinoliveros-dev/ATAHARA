@@ -76,8 +76,10 @@ new Column{Bind = "proformaBillShippersName", Header = "Shipper's Name"}
             });
 
             var lastSelectedIds;
+            var lastSelectedBillNo;
             $('#ApiDemoGrid').on('aweselect', function () {
                 lastSelectedIds = $.map($(this).data('api').getSelection(), function (val) { return val.proformaBillID; });
+                lastSelectedBillNo = $.map($(this).data('api').getSelection(), function (val) { return val.proformaBillNo; });
                 console.log(lastSelectedIds);
             })
 
@@ -85,7 +87,7 @@ new Column{Bind = "proformaBillShippersName", Header = "Shipper's Name"}
 
                 if (lastSelectedIds != null) {
                     if (lastSelectedIds.length != 0) {
-                        window.location.href = '/Proforma/ViewBill/' + lastSelectedIds;
+                        window.location.href = '/Proforma/ViewBillDetails/?billNo=' + lastSelectedBillNo;
                     }
                     else {
                         $.notify("Please select a bill to view.", "error");
