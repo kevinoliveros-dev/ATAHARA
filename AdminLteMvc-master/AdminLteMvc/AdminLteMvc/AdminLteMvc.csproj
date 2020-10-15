@@ -665,20 +665,8 @@
       <DependentUpon>ATWReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Report_Documents\ATWReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ATWReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Report_Documents\EIRIReturnInReport.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Report_Documents\EIRIReturnInReport1.cs">
-      <DependentUpon>EIRIReturnInReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Report_Documents\EIROReport.cs">
       <AutoGen>True</AutoGen>
@@ -687,10 +675,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report_Documents\ProformaBillOfLading.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProformaBillOfLading.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProformaBillOfLading.rpt</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
@@ -1861,6 +1849,13 @@
     <EmbeddedResource Include="Migrations\202009290728269_EirPullOut5.resx">
       <DependentUpon>202009290728269_EirPullOut5.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report_Documents\ProformaBillOfLading.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProformaBillOfLading.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
