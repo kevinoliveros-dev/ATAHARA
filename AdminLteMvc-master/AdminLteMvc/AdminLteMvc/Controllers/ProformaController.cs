@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminLteMvc.Models;
 using AdminLteMvc.Models.WEBSales;
+using CrystalDecisions.CrystalReports.Engine;
 using Omu.AwesomeMvc;
 
 namespace AdminLteMvc.Controllers
@@ -173,6 +175,32 @@ namespace AdminLteMvc.Controllers
             var billinfo = db.ProformaBills.Find(ID);
             return View("ViewBill", billinfo);
         }
+        public ActionResult ViewBillDetails(string billNo)
+        {
+            ViewBag.BillNo = billNo;
+            return View("ViewBillDetails");
+        }
+        public FileResult DisplayProformaBOLReport(string billNo)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/ProformaBillOfLading.rpt")));
+            string query = String.Format("exec SP_BillOfLadingReportByBillNo '{0}'", billNo.Trim());
+            var list = db.Database.SqlQuery<Reports_VM.ProformaVm>(query).ToList();
 
+            if (list.Count > 0)
+            {
+                rd.SetDataSource(list);
+                rd.SetParameterValue(0, billNo);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+            }
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return File(stream, "application/pdf");
+        }
     }
 }

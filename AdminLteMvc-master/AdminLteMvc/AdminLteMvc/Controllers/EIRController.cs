@@ -333,9 +333,9 @@ namespace AdminLteMvc.Controllers
             var eiroutdtls = db.EirPullOut.Find(ID);
             return View("ViewDetails", eiroutdtls);
         }
-        public ActionResult EIROViewDetails(int ID)
+        public ActionResult EIROViewDetails(string eiroNo)
         {
-            ViewBag.EIROID = ID;
+            ViewBag.EIRONO = eiroNo;
             return View("EIROViewDetails");
         }
 
@@ -345,17 +345,17 @@ namespace AdminLteMvc.Controllers
             return View("EIRIViewDetails");
         }
 
-        public FileResult DisplayEIROReport(int EIROID)
+        public FileResult DisplayEIROReport(string EIRONo)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/EIROReport.rpt")));
-            string query = String.Format("exec pr_eirosp {0}", EIROID);
+            string query = String.Format("exec SP_PullOutByEIRONo '{0}'", EIRONo);
             var list = db.Database.SqlQuery<Reports_VM.EIROVm>(query).ToList();
 
             if (list.Count > 0)
             {
                 rd.SetDataSource(list);
-                rd.SetParameterValue(0, EIROID);
+                rd.SetParameterValue(0, EIRONo);
 
                 Response.Buffer = false;
                 Response.ClearContent();
@@ -370,7 +370,6 @@ namespace AdminLteMvc.Controllers
 
         public FileResult DisplayEIRIReturnReport(string EIRINo)
         {
-            var path = Server.MapPath(@"~/Report_Documents/EIRIReturnInReport.rpt");
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/EIRIReturnInReport.rpt")));
             string query = String.Format("exec SP_ForReturnPrintReport '{0}'", EIRINo);

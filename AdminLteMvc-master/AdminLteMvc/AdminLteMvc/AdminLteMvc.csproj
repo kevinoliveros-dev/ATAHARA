@@ -653,6 +653,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports_VM\ATWVm.cs" />
     <Compile Include="Reports_VM\EIRIVm.cs" />
+    <Compile Include="Reports_VM\ProformaVm.cs" />
     <Compile Include="Reports_VM\EIROVm.cs" />
     <Compile Include="Report_Documents\ATWReport.cs">
       <SubType>Component</SubType>
@@ -1607,7 +1608,6 @@
     <Content Include="Views\Proforma\ViewBill.cshtml" />
     <Content Include="Views\EIR\EIROViewDetails.cshtml" />
     <Content Include="Views\EIR\EIRIViewDetails.cshtml" />
-    <Content Include="Views\ATW\ATWViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
