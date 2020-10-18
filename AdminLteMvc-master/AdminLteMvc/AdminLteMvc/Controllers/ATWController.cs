@@ -254,17 +254,17 @@ namespace AdminLteMvc.Controllers
 
         //    return View("ForPrint", trndetail);
         //}
-        public FileResult ForPrint(int id,string transNo, string atwBkNo)
+        public FileResult DisplayATWReport(string ATWBKNO, string TRANSNO)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/ATWReport.rpt")));
-            string query = String.Format("exec PROC_ATW '{0}','{1}'", atwBkNo, transNo);
+            string query = String.Format("exec PROC_ATW '{0}','{1}'", ATWBKNO, TRANSNO);
             var list = db.Database.SqlQuery<Reports_VM.ATWVm>(query).ToList();
 
             if (list.Count > 0)
             {
                 rd.SetDataSource(list);
-                rd.SetParameterValue(0, atwBkNo);
+                rd.SetParameterValue(0, ATWBKNO);
 
                 Response.Buffer = false;
                 Response.ClearContent();
@@ -275,6 +275,13 @@ namespace AdminLteMvc.Controllers
             stream.Seek(0, SeekOrigin.Begin);
 
             return File(stream, "application/pdf");
+        }
+        
+        public ActionResult ATWViewDetails (string transNo, string atwBkNo)
+       {
+            ViewBag.TRANSNO = transNo;
+            ViewBag.ATWBKNO = atwBkNo;
+            return View("ATWViewDetails");
         }
     }
 }

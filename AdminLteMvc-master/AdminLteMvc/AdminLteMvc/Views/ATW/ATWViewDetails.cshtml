@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "EIR Return In Report";
+    ViewBag.Title = "ATW Report";
     Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
 
-    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("IndexOut", "EIR")'"> <i class="fa fa-cancel fa-1x"></i> Back to EIR-Returns List</button>
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "ATW")'"> <i class="fa fa-cancel fa-1x"></i> Back to ATW List</button>
 }
 
 
@@ -21,12 +21,12 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            var URL = '../../../EIR/DisplayEIRIReturnReport';
-            <a href="~/Views/EIR/EIRIViewDetails.cshtml">~/Views/EIR/EIRIViewDetails.cshtml</a>
+            var URL = '../../../ATW/DisplayATWReport';
+            //<a href="~/Views/ATW/ATWViewDetails.cshtml">~/Views/ATW/ATWViewDetails.cshtml</a>
             $("#DisplayPDF").html(
                 $('<iframe>', {
-                    src: URL + '?EIRINo=@ViewBag.EIRINO',
-                    title: "EIR Return In",
+                    src: URL + '?ATWBKNO=@ViewBag.ATWBKNO' + '&TRANSNO=@ViewBag.TRANSNO',
+                    title: "ATW Report",
                     width: '1000px',
                     height: '800px'
                 })

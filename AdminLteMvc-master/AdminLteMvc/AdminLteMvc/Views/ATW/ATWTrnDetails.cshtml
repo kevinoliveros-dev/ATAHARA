@@ -95,7 +95,7 @@
             </div>
             <div class="box-footer">
                 <button type="button" class="btn btn-success" id="backMn" onclick="location.href = '@Url.Action("Index", "ATW")'"> <i class="fa fa-arrow-left fa-1x"></i> Back to Main</button>
-                <button type="button" class="btn btn-info" id="print"> <i class="fa fa-print fa-1x"></i> Print </button>            
+                <button type="button" class="btn btn-info" id="viewdtls"> <i class="fa fa-print fa-1x"></i> View Details </button>            
     @*<button type="button" class="btn btn-primary" id="adddtl" onclick="location.href = '@Url.Action("AddATWDetail", "ATW", new { @Model.atwID})'"> <i class="fa fa-plus-circle fa-1x"></i> Add Transaction</button>*@
                 @*<button type="button" class="btn btn-info" id="adddtl" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle fa-1x"></i>Add Transaction</button>
                 <button type="button" class="btn btn-warning" id="edit"> <i class="fa fa-pencil fa-1x"></i> Edit </button>
@@ -179,7 +179,22 @@
                 if (lastSelectedIds.length != 0) {
                     var atwno = @Html.Raw(Json.Encode(@Model.bkNo));
                     //window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?atwbkno=' + atwno;
-                    window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?transNo=' + transactionNumber + '&atwBkNo=' + atwno;
+                    window.location.href = '/ATW/ATWViewDetails/' + '?transNo=' + transactionNumber + '&atwBkNo=' + atwno;
+                }
+                else {
+                    $.notify("Please select row to view details.", "error");
+                }
+            }
+            else {
+                $.notify("Please select row to view details.", "error");
+            }
+        });
+        $('#viewdtls').click(function () {
+            if (lastSelectedIds != null) {
+                if (lastSelectedIds.length != 0) {
+                    var atwno = @Html.Raw(Json.Encode(@Model.bkNo));
+                    //window.location.href = '/ATW/ForPrint/' + lastSelectedIds + '?atwbkno=' + atwno;
+                    window.location.href = '/ATW/ATWViewDetails/' + '?transNo=' + transactionNumber + '&atwBkNo=' + atwno;
                 }
                 else {
                     $.notify("Please select row to view details.", "error");

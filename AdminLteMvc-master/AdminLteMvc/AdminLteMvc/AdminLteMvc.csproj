@@ -654,16 +654,16 @@
     <Compile Include="Reports_VM\ATWVm.cs" />
     <Compile Include="Reports_VM\EIRIVm.cs" />
     <Compile Include="Reports_VM\EIROVm.cs" />
+    <Compile Include="Report_Documents\ATWReport.cs">
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ATWReport.rpt</DependentUpon>
+    </Compile>
     <Compile Include="Report_Documents\EIRIReturnInReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EIRIReturnInReport.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Report_Documents\ATWReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ATWReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report_Documents\EIRIReturnInReport.cs">
       <SubType>Component</SubType>
@@ -1607,6 +1607,7 @@
     <Content Include="Views\Proforma\ViewBill.cshtml" />
     <Content Include="Views\EIR\EIROViewDetails.cshtml" />
     <Content Include="Views\EIR\EIRIViewDetails.cshtml" />
+    <Content Include="Views\ATW\ATWViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1848,6 +1849,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009290728269_EirPullOut5.resx">
       <DependentUpon>202009290728269_EirPullOut5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report_Documents\ATWReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ATWReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report_Documents\ProformaBillOfLading.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
