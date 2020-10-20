@@ -574,6 +574,7 @@
     <Compile Include="Models\WEBSales\CustomerShippers.cs" />
     <Compile Include="Models\WEBSales\CYEPO.cs" />
     <Compile Include="Models\WEBSales\CYLD.cs" />
+    <Compile Include="Models\WEBSales\CYLocations.cs" />
     <Compile Include="Models\WEBSales\CYSA.cs" />
     <Compile Include="Models\WEBSales\DamagesCode.cs" />
     <Compile Include="Models\WEBSales\Destination.cs" />

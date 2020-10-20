@@ -152,6 +152,7 @@ namespace AdminLteMvc.Models
         public DbSet<WEBSales.DamagesCode> DamagesCode { get; set; }
 
         public DbSet<WEBSales.ProformaBills> ProformaBills { get; set; }
+        public DbSet<WEBSales.CYLocations> CYLocations { get; set; }
 
 
     }
