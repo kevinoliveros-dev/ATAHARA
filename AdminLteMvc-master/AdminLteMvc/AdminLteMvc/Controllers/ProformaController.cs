@@ -192,7 +192,7 @@ namespace AdminLteMvc.Controllers
                 rd.SetDataSource(list);
                 rd.SetParameterValue(0, billNo);
 
-                Response.Buffer = false;
+                Response.Buffer = false;  
                 Response.ClearContent();
                 Response.ClearHeaders();
             }

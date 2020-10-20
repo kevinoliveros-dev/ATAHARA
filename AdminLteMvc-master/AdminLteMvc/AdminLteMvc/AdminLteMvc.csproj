@@ -661,14 +661,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ATWReport.rpt</DependentUpon>
     </Compile>
-    <Compile Include="Report_Documents\EIRIReturnInReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EIRIReturnInReport.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Report_Documents\EIRIReturnInReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Report_Documents\EIRIReturnInReport.cs" />
     <Compile Include="Report_Documents\EIROReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -906,6 +899,7 @@
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\WEBSales.pubxml" />
+    <Content Include="Report_Documents\EIRIReturnInReport.rpt" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\AdminLTE\app.js" />
