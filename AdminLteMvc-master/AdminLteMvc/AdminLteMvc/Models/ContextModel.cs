@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
@@ -11,7 +12,6 @@ namespace AdminLteMvc.Models
         public ContextModel()
             : base("DefaultConnection")
         {
-
         }
 
         public DbSet<WEBSales.Users> Users { get; set; }
@@ -152,7 +152,6 @@ namespace AdminLteMvc.Models
         public DbSet<WEBSales.DamagesCode> DamagesCode { get; set; }
 
         public DbSet<WEBSales.ProformaBills> ProformaBills { get; set; }
-        public DbSet<WEBSales.CYLocations> CYLocations { get; set; }
 
 
     }

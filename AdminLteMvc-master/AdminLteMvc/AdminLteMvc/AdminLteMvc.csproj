@@ -574,7 +574,6 @@
     <Compile Include="Models\WEBSales\CustomerShippers.cs" />
     <Compile Include="Models\WEBSales\CYEPO.cs" />
     <Compile Include="Models\WEBSales\CYLD.cs" />
-    <Compile Include="Models\WEBSales\CYLocations.cs" />
     <Compile Include="Models\WEBSales\CYSA.cs" />
     <Compile Include="Models\WEBSales\DamagesCode.cs" />
     <Compile Include="Models\WEBSales\Destination.cs" />
@@ -1857,6 +1856,7 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
