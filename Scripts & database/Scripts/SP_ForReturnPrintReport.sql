@@ -39,7 +39,7 @@ BEGIN
       ,[EIRITrucker]
       ,[EIRIPlateNo]
       ,[EIRIDriversName]
-      ,[EIRIDamagesCode]
+      ,REPLACE(REPLACE([EIRIDamagesCode], CHAR(13), ''), CHAR(10), '')  as [EIRIDamagesCode]
       ,[EIRISCR]
       ,[EIRIStatus]
       ,[EIRIRemarks]
