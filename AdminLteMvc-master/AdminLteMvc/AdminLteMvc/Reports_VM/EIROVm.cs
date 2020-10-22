@@ -30,5 +30,6 @@ namespace AdminLteMvc.Reports_VM
         public string EIRODriversName { get; set; }
         public string EIRODamagesCode { get; set; }
         public string EIROSCR { get; set; }
+        public string EIRORemarks { get; set; }
     }
 }
