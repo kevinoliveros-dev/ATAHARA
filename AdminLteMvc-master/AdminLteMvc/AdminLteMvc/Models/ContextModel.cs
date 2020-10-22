@@ -153,6 +153,7 @@ namespace AdminLteMvc.Models
 
         public DbSet<WEBSales.ProformaBills> ProformaBills { get; set; }
 
+        public DbSet<WEBSales.CYLocation> CYLocation { get; set; }
 
     }
 }

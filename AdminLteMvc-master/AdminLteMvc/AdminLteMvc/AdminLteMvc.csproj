@@ -526,6 +526,10 @@
     <Compile Include="Migrations\202009290728269_EirPullOut5.Designer.cs">
       <DependentUpon>202009290728269_EirPullOut5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010160121262_CYLocation.cs" />
+    <Compile Include="Migrations\202010160121262_CYLocation.Designer.cs">
+      <DependentUpon>202010160121262_CYLocation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Class\tmpBranchPriceList.cs" />
@@ -574,6 +578,7 @@
     <Compile Include="Models\WEBSales\CustomerShippers.cs" />
     <Compile Include="Models\WEBSales\CYEPO.cs" />
     <Compile Include="Models\WEBSales\CYLD.cs" />
+    <Compile Include="Models\WEBSales\CYLocation.cs" />
     <Compile Include="Models\WEBSales\CYSA.cs" />
     <Compile Include="Models\WEBSales\DamagesCode.cs" />
     <Compile Include="Models\WEBSales\Destination.cs" />
@@ -1843,6 +1848,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009290728269_EirPullOut5.resx">
       <DependentUpon>202009290728269_EirPullOut5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010160121262_CYLocation.resx">
+      <DependentUpon>202010160121262_CYLocation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report_Documents\ATWReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

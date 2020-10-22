@@ -258,7 +258,7 @@ namespace AdminLteMvc.Controllers
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath(@"~/Report_Documents/ATWReport.rpt")));
-            string query = String.Format("exec PROC_ATW '{0}','{1}'", ATWBKNO, TRANSNO);
+            string query = String.Format("exec SP_ATW '{0}','{1}'", ATWBKNO, TRANSNO);
             var list = db.Database.SqlQuery<Reports_VM.ATWVm>(query).ToList();
 
             if (list.Count > 0)
